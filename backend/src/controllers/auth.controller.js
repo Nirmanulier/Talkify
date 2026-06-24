@@ -1,4 +1,4 @@
-import User from '../models/user.js';
+import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import { generateToken } from '../lib/utils.js';
 
@@ -17,7 +17,7 @@ export const signup = async (req,res) => {
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-        return res.status(400).json({ message: "Invalid email format" });
+            return res.status(400).json({ message: "Invalid email format" });
         }
 
         const user = await User.findOne({email});
@@ -33,8 +33,13 @@ export const signup = async (req,res) => {
         })
 
         if(newUser) {
+            //before CR
             generateToken(newUser._id , res)
-            await newUSer.save()
+            await newUser.save()
+
+            //after CR
+            // const savedUser = await newUser.save();
+            // generateToken(savedUser._id, res);
 
             res.status(201).json({
                 _id: newUser._id,

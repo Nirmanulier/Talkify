@@ -15,14 +15,14 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: true,
-            minlength: 6,
+            minlength: 6
         },
         profilePic: {
             type: String,
-            default: "",
+            default: ""
         },
     },
-    { timestamps: true }
+    { timestamps: true } //created At and updatedAt fields will be automatically added to the schema
 );
 
 const User = mongoose.model("User", userSchema);
